@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  node:
+    image: node:current-alpine
+    working_dir: /var/www
+    container_name: laravel_node1
+    volumes:
+      - ./:/var/www
+    tty: true
+    networks:
+      - web
+  #
+  pma:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin1
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: user
+      PMA_PASSWORD: 123456
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: 123456
+      PMA_ARBITRARY: 1
+    ports:
+      - "125:80"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    networks:
+      - web
+  nginx:
+    container_name: nginx1
+    image: nginx:alpine
+    volumes:
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/
+    ports:
+      - "80:80"
+    networks:
+      - web
+    depends_on:
+      - php
+
+  php:
+    container_name: php1
+    build:
+      dockerfile: .docker/php/Dockerfile
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    extra_hosts:
+      - 'host..docker.internal:host-gateway'
+    volumes:
+      - ./:/var/www/
+    networks:
+      - web
+
+  mysql:
+    container_name: mysql1
+    image: mysql:8.3
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_database:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_PASSWORD: 123456
+      MYSQL_USER: user
+      SERVICE_TAGS: dev
+      TZ: Europe/Moscow
+
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  mysql_database:
+    driver: local
+  pgsql_database:
+      driver: local

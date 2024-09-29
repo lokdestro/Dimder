@@ -91,6 +91,12 @@ ER-диаграмма представляет отношения и связи 
 
 ### Сообщения
 
+- POST /api/messages - получить историю сообщений.
+    {
+    "user_id": "integer",
+    "recipient_id": "integer",
+  }
+
 -  websocket - Отправка нового сообщения.
     {
     "recipient_id": "integer",
