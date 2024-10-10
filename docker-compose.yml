@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   node:
-    image: node:current-alpine
+    image: node:18-alpine
     working_dir: /var/www
-    container_name: laravel_node1
+    container_name: laravel_node3
     volumes:
       - ./:/var/www
     tty: true
@@ -14,6 +14,7 @@ services:
   pma:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin1
+    platform: linux/amd64
     environment:
       PMA_HOST: mysql
       PMA_USER: user
@@ -30,20 +31,21 @@ services:
     networks:
       - web
   nginx:
-    container_name: nginx1
     image: nginx:alpine
     volumes:
       - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./:/var/www/
     ports:
       - "80:80"
+      - "9001:9001"
+      - "9003:9003"
+      - "8000:8000"
     networks:
       - web
     depends_on:
       - php
 
   php:
-    container_name: php1
     build:
       dockerfile: .docker/php/Dockerfile
     environment:
@@ -54,9 +56,10 @@ services:
       - ./:/var/www/
     networks:
       - web
+    ports:
+      - "8080:8080"
 
   mysql:
-    container_name: mysql1
     image: mysql:8.3
     ports:
       - "3306:3306"

@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     vim \
     nano \
+    mc \
     libpq-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
@@ -30,7 +31,7 @@ RUN docker-php-ext-install zip \
         pdo_mysql \
         pgsql \
         pdo_pgsql \
-        opcache \
+     #   opcache \
         exif \
         intl \
         xsl \

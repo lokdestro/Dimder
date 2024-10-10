@@ -1,0 +1,17 @@
+
+
+export const SET_MESSAGE = "SET_MESSAGE";
+export const WS_CONNECT = "WS_CONNECT";
+export const WS_DISCONNECT = "WS_DISCONNECT";
+export const WS_CONNECTED = "WS_CONNECTED";
+export const WS_DISCONNECTED = "WS_DISCONNECTED";
+export const WS_SEND_MESSAGE = "WS_SEND_MESSAGE";
+
+
+
+export const SET_SOCKET_ERROR = "SET_SOCKET_ERROR";
+export const SET_SOCKET_OPEN = "SET_SOCKET_OPEN";
+
+
+export const SET_LIST_MESSAGE = "SET_LIST_MESSAGE";
+export const ADD_MESSAGE = "ADD_MESSAGE";
