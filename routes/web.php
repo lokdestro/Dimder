@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,7 @@ use App\Http\Controllers\ChatController;
 //     return view('welcome');
 // });
 Route::get('/', [PageController::class, 'index']);
-Route::get('/page', [PageController::class, 'page']);
+Route::get('/page', [TestController::class, 'index']);
 Route::post('/chat',[ChatController::class, 'store']);
 Route::post('/messages', [ChatsController::class, 'sendMessage']);
 

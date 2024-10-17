@@ -20,7 +20,8 @@ DELETE FROM User WHERE id = 1;
 -- CRUD операции для таблицы Message
 
 -- Создание нового сообщения
-INSERT INTO Message (sender_id, receiver_id, content)
+INSERT INTO Message (sen
+der_id, receiver_id, content)
 VALUES (1, 2, 'Hello! How are you?');
 
 -- Чтение всех сообщений
