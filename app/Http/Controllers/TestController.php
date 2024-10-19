@@ -16,16 +16,16 @@ class TestController extends Controller
         // ]);
 
         // Profile::create([
-        //     'user_id' => 1, 
-        //     'photo' => '', 
-        //     'bio' => '', 
-        //     'country' => 'Minsk', 
-        //     'city' => 'minsk', 
-        //     'birthday' => date("Y-m-d H:i:s"), 
-        //     'sex' => 'male', 
+        //     'user_id' => 1,
+        //     'photo' => '',
+        //     'bio' => '',
+        //     'country' => 'Minsk',
+        //     'city' => 'minsk',
+        //     'birthday' => date("Y-m-d H:i:s"),
+        //     'sex' => 'male',
         //     'interests' => ''
         // ]);
-        
+
         // $button = Button::where('owner_id', $userId)->first();
 
         // Profile::where('user_id', 1)->delete();
@@ -38,7 +38,7 @@ class TestController extends Controller
         //     $profile->city = 'Брест';
         //     $profile->save();
         // }
-        
+
 
         $user = User::where('id', 1)
                         ->with(['profile'])
@@ -52,6 +52,6 @@ class TestController extends Controller
         // ];
         \Log::info($user);
         return view("welcome", $user);
-    }    
-    
+    }
+
 }
