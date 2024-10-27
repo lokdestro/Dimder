@@ -116,3 +116,48 @@ ER-диаграмма представляет отношения и связи 
     "location": "string"
   }
   
+
+  # Laravel API с использованием Swagger
+
+## Описание
+
+Этот проект использует Swagger для документирования API. Swagger позволяет автоматически генерировать документацию для всех доступных маршрутов API.
+
+### Установка и настройка
+
+1. Установите зависимости:
+
+    ```bash
+    composer install
+    ```
+
+2. Сгенерируйте Swagger-документацию:
+
+    ```bash
+    php artisan l5-swagger:generate
+    ```
+
+3. Запустите локальный сервер:
+
+    ```bash
+    php artisan serve
+    ```
+
+### Доступ к Swagger UI
+
+После запуска приложения Swagger UI будет доступен по следующему адресу:
+
+- [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
+
+### Как получить Swagger-схему
+
+Вы можете получить Swagger-схему в формате JSON по следующему адресу:
+
+- [http://localhost:8000/api/docs/swagger.json](http://localhost:8000/api/docs/swagger.json)
+
+### Пример использования Swagger-схемы
+
+Чтобы сгенерировать клиентский код на основе Swagger-схемы, используйте инструмент Swagger Codegen:
+
+```bash
+swagger-codegen generate -i http://localhost:8000/api/docs/swagger.json -l php

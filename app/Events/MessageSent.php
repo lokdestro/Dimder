@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Events;
+<<<<<<< HEAD
 
+=======
+// use App\Models\User;
+// use App\Models\Message;
+>>>>>>> main
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -9,28 +14,83 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+<<<<<<< HEAD
 
-class MessageSent
+=======
+use Illuminate\Support\Facades\Log;
+
+
+
+class MessageSent implements ShouldBroadcast
+>>>>>>> main
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
+<<<<<<< HEAD
+
+=======
+     * User that sent the message
+     *
+     * @var User
      */
-    public function __construct()
+    public $user;
+
+    /**
+     * Message details
+     *
+     * @var Message
+     */
+    public $message;
+    public $numChannel;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct( $user, $message, $numChannel)
     {
-        //
+        $this->user = $user;
+        $this->message = $message;
+        $this->numChannel = $numChannel;
+       // Log::info('MesagePushec contruct1');
+       // dd('fff');
+
     }
+
+
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return Channel|array
      */
-    public function broadcastOn(): array
+    // public function broadcastOn()
+    // {
+    //     return new PrivateChannel('chat');
+    // }
+    // public function broadcastOn()
+    // {
+    //     return ['my-channel'];
+    //
+    // }
+
+    public function broadcastAs()
     {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
+        return 'my-event';
     }
+
+    public function broadcastOn()
+    {
+        return ['my-channel' . $this->numChannel];
+    }
+
+    public function broadcastWith()
+    {
+        return ["message" => $this->message];
+    }
+
+
+>>>>>>> main
 }

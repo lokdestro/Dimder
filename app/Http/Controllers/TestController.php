@@ -12,7 +12,10 @@ use App\Models\Profile;
  *      description="Пример API для создания, редактирования и удаления профилей пользователей.",
  * )
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 class TestController extends Controller
 {
     /**
