@@ -43,6 +43,7 @@ class AuthController extends Controller
             'email' => $request->email
         ])->first();
         if (empty($user)){
+            Log::critical('user not found');
             return response()->json([
                 'message' => 'Unauthorized',
                 'status' => 'error',
@@ -50,6 +51,7 @@ class AuthController extends Controller
         }
 
         if (!Hash::check($request->password, $user->password)) {
+            Log::critical('Неверный пароль');
             return response()->json([
                 'message' => 'Unauthorized',
                 'status' => 'error',
@@ -59,6 +61,7 @@ class AuthController extends Controller
         $token = $user->api_token;
 
         if (!$token) {
+            Log::critical('User не зарегестрирован');
             return response()->json([
                 'message' => 'Unauthorized',
                 'status' => 'error',
@@ -74,7 +77,7 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        Log::info($request);
+        Log::debug($request);
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
@@ -85,6 +88,7 @@ class AuthController extends Controller
             'email' => $request->email
         ])->get();
         if (count($user) > 0){
+            Log::critical('count($user) > 0');
             return response()->json(['message' => 'Error', 'status' => 'error', 'user' => null]);
         }
         $user = User::create([
@@ -109,6 +113,7 @@ class AuthController extends Controller
         $user->api_token = $token;
         $user->save();
         $user = Auth::user();
+        Log::info($user);
         return  response()->json(['message' => 'User register successfully', 
                                   'status' => 'success', 
                                   'user' => $user, 
