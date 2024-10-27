@@ -45,7 +45,7 @@ class MessageSent implements ShouldBroadcast
         $this->numChannel = $numChannel;
        // Log::info('MesagePushec contruct1');
        // dd('fff');
-        
+
     }
 
 
@@ -62,7 +62,7 @@ class MessageSent implements ShouldBroadcast
     // public function broadcastOn()
     // {
     //     return ['my-channel'];
-    //     
+    //
     // }
 
     public function broadcastAs()

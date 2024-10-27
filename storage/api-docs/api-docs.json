@@ -1,0 +1,417 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API для управления пользователями и профилями",
+        "description": "Пример API для создания, редактирования и удаления профилей пользователей.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/signin": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Display login page",
+                "description": "Display login page.",
+                "operationId": "69abd7887b970b669f7f960432df8f10",
+                "responses": {
+                    "200": {
+                        "description": "Login page loaded"
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Display registration page",
+                "description": "Display registration page.",
+                "operationId": "29c367d9e7e96d2d4e239ce60f1e92fe",
+                "responses": {
+                    "200": {
+                        "description": "Registration page loaded"
+                    }
+                }
+            }
+        },
+        "/weblogout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Display logout page",
+                "description": "Display logout page.",
+                "operationId": "1148c1122b6f641e8350d243e95807e3",
+                "responses": {
+                    "200": {
+                        "description": "Logout page loaded"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login",
+                "description": "User login.",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User registration",
+                "description": "User registration.",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User registered successfully"
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User logout",
+                "description": "User logout.",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    }
+                }
+            }
+        },
+        "/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh JWT token",
+                "description": "Refresh JWT token.",
+                "operationId": "0c3ea3c61aed881016646810460499e9",
+                "responses": {
+                    "200": {
+                        "description": "Token refreshed"
+                    }
+                }
+            }
+        },
+        "/getData": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get all users",
+                "description": "Get user data.",
+                "operationId": "27b0e2657788df72e36c407bff760212",
+                "responses": {
+                    "200": {
+                        "description": "Users retrieved successfully"
+                    }
+                }
+            }
+        },
+        "/store": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Отправка уведомления",
+                "description": "Отправка уведомления в реальном времени.",
+                "operationId": "744e6295d60052ff813176857abf6c2c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "numChannel": {
+                                        "type": "string",
+                                        "example": "general"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Hello, this is a real-time notification!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Уведомление отправлено"
+                    },
+                    "400": {
+                        "description": "Ошибка запроса"
+                    }
+                }
+            }
+        },
+        "/sendMessage": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Отправка сообщения",
+                "description": "Отправка сообщения.",
+                "operationId": "121324c3329d87021f1b2af2f316e1f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Hello, world!"
+                                    },
+                                    "numChannel": {
+                                        "type": "string",
+                                        "example": "general"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Сообщение отправлено успешно",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Message OK"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ошибка отправки сообщения",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Message Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/index": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Отображение главной страницы",
+                "description": "Отображение страницы \"Welcome\".",
+                "operationId": "f5f11792ae1365732f86133468f2331d",
+                "responses": {
+                    "200": {
+                        "description": "Главная страница",
+                        "content": {
+                            "text/html": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/page": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Отображение дополнительной страницы",
+                "description": "Отображение страницы \"Page\".",
+                "operationId": "2f2aea91f0edd0e6728d69f6594e6d9c",
+                "responses": {
+                    "200": {
+                        "description": "Страница page",
+                        "content": {
+                            "text/html": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/test": {
+            "get": {
+                "tags": [
+                    "TestController"
+                ],
+                "summary": "Выполнение операций с пользователями и профилями",
+                "description": "Метод создает нового пользователя и профиль, обновляет информацию профиля, удаляет профиль и возвращает информацию о пользователе.",
+                "operationId": "7c2e6b5602b42636e41cc7228a9d8765",
+                "responses": {
+                    "200": {
+                        "description": "Успешная операция",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Финансы"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "ali"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "tishkovdima05@gmail.com"
+                                                },
+                                                "profile": {
+                                                    "properties": {
+                                                        "country": {
+                                                            "type": "string",
+                                                            "example": "Minsk"
+                                                        },
+                                                        "city": {
+                                                            "type": "string",
+                                                            "example": "minsk"
+                                                        },
+                                                        "bio": {
+                                                            "type": "string",
+                                                            "example": "Обновленная информация о пользователе"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "button": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Кнопка 1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ресурс не найден"
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Chat",
+            "description": "Chat"
+        },
+        {
+            "name": "Pages",
+            "description": "Pages"
+        },
+        {
+            "name": "TestController",
+            "description": "TestController"
+        }
+    ]
+}

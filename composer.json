@@ -8,6 +8,7 @@
         "php": "^8.1",
         "beyondcode/laravel-websockets": "^1.14",
         "cboden/ratchet": "^0.4.4",
+        "darkaonline/l5-swagger": "^8.6",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -24,7 +25,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
