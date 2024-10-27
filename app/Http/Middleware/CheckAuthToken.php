@@ -23,7 +23,7 @@ class CheckAuthToken
         Log::info($token);
         Log::info($request);
         if (empty($token) || !$this->isValidToken($token)) {
-            return response()->json(['message' => 'Unauthorized23', 'status' => 'error'], 401);
+            return response()->json(['message' => 'Unauthorized', 'status' => 'error'], 401);
         }
         return $next($request);
     }

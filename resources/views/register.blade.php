@@ -53,7 +53,7 @@
     //    document.getElementById("login_modal_error").innerHTML = '';
         let formDataPost = new FormData(document.getElementById("login_modal_form"));
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "{{route('register')}}");
+        xhr.open("POST", 'https://d434-46-56-217-34.ngrok-free.app/api/register');
         xhr.send(formDataPost);
 
         xhr.onload = async function (){

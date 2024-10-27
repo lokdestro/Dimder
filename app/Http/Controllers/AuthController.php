@@ -44,14 +44,14 @@ class AuthController extends Controller
         ])->first();
         if (empty($user)){
             return response()->json([
-                'message' => 'Unauthorized3',
+                'message' => 'Unauthorized',
                 'status' => 'error',
             ], 401);
         }
 
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Unauthorized1',
+                'message' => 'Unauthorized',
                 'status' => 'error',
             ], 401);
         }
@@ -60,7 +60,7 @@ class AuthController extends Controller
 
         if (!$token) {
             return response()->json([
-                'message' => 'Unauthorized2',
+                'message' => 'Unauthorized',
                 'status' => 'error',
             ], 401);
         }
@@ -79,7 +79,6 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-         //   'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:5',
         ]);
         $user = User::where([
