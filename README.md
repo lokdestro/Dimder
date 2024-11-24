@@ -93,17 +93,19 @@ ER-диаграмма представляет отношения и связи 
 
 -  websocket - Отправка нового сообщения.
     {
-    "recipient_id": "integer",
+    "sender_id": "integer",
+    "consumer_id": "integer",
     "body": "string",
     "type": "integer"
     }
 - websocket - Получение сообщения
     {
     "sender_id":"integer",
-    "name": "string,"
-    "body": "string",
+    "consumer_id": "string",
     "type": "integer"
     }
+
+    У админа будет дополнительный тип сообщения "рассылка"
 
 ### Профили
 
