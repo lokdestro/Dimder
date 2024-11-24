@@ -53,7 +53,7 @@ class AuthController extends Controller
                 $user->save();
             }
         }
-
+        Log::info("confirmEmail end");
 
     }
 
@@ -137,22 +137,22 @@ class AuthController extends Controller
         $token = JWTAuth::attempt($credentials);
         $user->api_token = $token;
         $user->save();
-        // $email = $request->email;
-        // Log::info("1");
-        // $inf = $request->only('email', 'name');
-        // Log::info("2");
-        // $hash = md5($email);
-        // Log::info($hash);
-        // $confirmEmail = ConfirmEmail::create([
-        //     'user_id' => $user->id,
-        //     'confirm_hasn' => $hash,
-        // ]);
-        // Log::info('add confirmEmail');
-        // try {
-        //     Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
-        // } catch (Exception $ex) {
-        //     Log::critical($user, 'EMAIL');
-        // }
+        $email = $request->email;
+        Log::info("1");
+        $inf = $request->only('email', 'name');
+        Log::info("2");
+        $hash = md5($email);
+        Log::info($hash);
+        $confirmEmail = ConfirmEmail::create([
+            'user_id' => $user->id,
+            'confirm_hasn' => $hash,
+        ]);
+        Log::info('add confirmEmail');
+        try {
+            Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
+        } catch (Exception $ex) {
+            Log::critical($user, 'EMAIL');
+        }
         $user = Auth::user();
         Log::info($user);
         return  response()->json(['message' => 'User register successfully', 

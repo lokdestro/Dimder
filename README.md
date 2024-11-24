@@ -96,7 +96,7 @@ ER-диаграмма представляет отношения и связи 
     "recipient_id": "integer",
     "body": "string",
     "type": "integer"
-  }
+    }
 - websocket - Получение сообщения
     {
     "sender_id":"integer",
