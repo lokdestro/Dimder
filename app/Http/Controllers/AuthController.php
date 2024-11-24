@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\ConfirmEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmOperatorAssignMail;
+
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
 
@@ -31,6 +35,26 @@ class AuthController extends Controller
     public function weblogout(Request $request)
     {
         return view('logout');
+    }
+
+    public function confirmEmail(Request $request, $hash) {
+        Log::info('call confirm');
+        $confirm = ConfirmEmail::where([
+            'confirm_hasn' => $hash
+        ])->first();
+        if (!empty($confirm)) {
+            Log::info('find confirm hash');
+            $user = User::where([
+                'id' => $confirm->user_id
+            ])->first();
+            if (!empty($user)) {
+                Log::info('find user');
+                $user->email_comfirmed = 1;
+                $user->save();
+            }
+        }
+
+
     }
 
     public function login(Request $request)
@@ -69,6 +93,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        Log::info("LOGIN SUCCES");
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -88,7 +113,7 @@ class AuthController extends Controller
             'email' => $request->email
         ])->get();
         if (count($user) > 0){
-            Log::critical('count($user) > 0');
+            Log::critical($user);
             return response()->json(['message' => 'Error', 'status' => 'error', 'user' => null]);
         }
         $user = User::create([
@@ -112,6 +137,22 @@ class AuthController extends Controller
         $token = JWTAuth::attempt($credentials);
         $user->api_token = $token;
         $user->save();
+        // $email = $request->email;
+        // Log::info("1");
+        // $inf = $request->only('email', 'name');
+        // Log::info("2");
+        // $hash = md5($email);
+        // Log::info($hash);
+        // $confirmEmail = ConfirmEmail::create([
+        //     'user_id' => $user->id,
+        //     'confirm_hasn' => $hash,
+        // ]);
+        // Log::info('add confirmEmail');
+        // try {
+        //     Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
+        // } catch (Exception $ex) {
+        //     Log::critical($user, 'EMAIL');
+        // }
         $user = Auth::user();
         Log::info($user);
         return  response()->json(['message' => 'User register successfully', 

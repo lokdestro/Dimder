@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('profiles', function (Blueprint $table) {
-            $table->string('name', 255);
-            $table->string('surname', 255);
+        Schema::create('confirm_email', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('user_id');
+            $table->string('confirm_hasn', 512);
+            $table->index('confirm_hasn');
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('profiles', function (Blueprint $table) {
-            $table->dropColumn('name');
-            $table->dropColumn('surname');
-        });
+        Schema::dropIfExists('confirm_email');
     }
 };

@@ -72,10 +72,10 @@ const socketMiddleware = () => {
 
                 break;
             case WS_SEND_MESSAGE:
-                console.log("   --    2  wsSocket = ", wsSocket)
+                console.log("   --    2 -------  wsSocket = ", wsSocket)
                 if (wsSocket !== null && wsSocket.readyState === 1) {
                     const sendMessage = action.payload;
-                    console.log("send   --   message")
+                    console.log("send   --   message = ", sendMessage)
                     wsSocket.send(JSON.stringify(sendMessage));
                 }
                 break;

@@ -27,3 +27,5 @@ Route::post('/messages', [ChatsController::class, 'sendMessage']);
 Route::get('login', [AuthController::class, 'signin'])->name('signin');
 Route::get('register', [AuthController::class, 'signup'])->name('signup');
 Route::get('logout', [AuthController::class, 'weblogout'])->name('weblogout');
+Route::get('/confirm/{hash}', [AuthController::class, 'confirmEmail'])->name('confirmEmailName');
+

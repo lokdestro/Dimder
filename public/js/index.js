@@ -43790,7 +43790,10 @@ var setMessage = function setMessage(message) {
   return function (dispatch, getState) {
     dispatch({
       type: _constants_js__WEBPACK_IMPORTED_MODULE_0__.SET_MESSAGE,
-      payload: message
+      payload: {
+        message: message,
+        id: "2"
+      }
     });
   };
 };
@@ -43854,7 +43857,8 @@ var sendMessage = function sendMessage(body, clientId) {
       payload: {
         type: _constants_message_js__WEBPACK_IMPORTED_MODULE_0__.MESSAGE_TYPE,
         body: body,
-        clientId: clientId
+        sender_id: clientId,
+        consumer_id: 2
       }
     });
   };
@@ -44179,10 +44183,10 @@ var socketMiddleware = function socketMiddleware() {
             wsSocket = null;
             break;
           case _actions_constants_js__WEBPACK_IMPORTED_MODULE_1__.WS_SEND_MESSAGE:
-            console.log("   --    2  wsSocket = ", wsSocket);
+            console.log("   --    2 -------  wsSocket = ", wsSocket);
             if (wsSocket !== null && wsSocket.readyState === 1) {
               var sendMessage = action.payload;
-              console.log("send   --   message");
+              console.log("send   --   message = ", sendMessage);
               wsSocket.send(JSON.stringify(sendMessage));
             }
             break;

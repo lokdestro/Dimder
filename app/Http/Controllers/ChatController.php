@@ -27,14 +27,35 @@ class ChatController extends Controller
         if ($request->has('message')){ 
             $data=$request->get('message');
             $numChannel=$request->get('numChannel');
-            // $message = $user->messages()->create([
-            //  'message' => $data
-            //  ]);
+            $consumerId = $request->get('consumer_id');
+            $message = Message::create([
+                'sender_id' => $sender->id,
+                'consumer_id' => $consumerId,
+                'info' => $info
+            ]);
             $newMessage=new MyEvent($data, $numChannel);
-            broadcast($newMessage);//->toOthers();
-            //broadcast(new MessageSent($user,$message,$numChannel))->toOthers();
-            return ['status' => 'Message OK'];
+            broadcast($newMessage);
+            return response()->json(['status' => 'Message sent successfully', 'message' => $message]);
         }
         return ['status' => 'Message Error'];
+    }
+
+    public function fetchMessages(Request $request)
+    {
+        $senderId = Auth::id();
+        $consumerId = $request->get('consumer_id');
+        $messages = Message::where(function($query) use ($senderId, $consumerId) {
+                $query->where('sender_id', $senderId)
+                      ->where('consumer_id', $consumerId);
+            })
+            ->orWhere(function($query) use ($senderId, $consumerId) {
+                $query->where('sender_id', $consumerId)
+                      ->where('consumer_id', $senderId);
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(50)
+            ->get();
+
+        return response()->json($messages);
     }
 }

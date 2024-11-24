@@ -6,6 +6,9 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Models\Message;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Websocket implements MessageComponentInterface
 {
@@ -34,11 +37,33 @@ class Websocket implements MessageComponentInterface
         $data = json_decode($msg);
         fwrite($stdout, print_r($data, true));
 
+        $info = $data->info;
+        $senderId = $data->sender_id;
+        $consumerId = $data->consumer_id;
 
-        foreach ($this->clients as $client) {
-           // if ($from !== $client) {
-                $client->send($msg);
-           // }
+        $message = Message::create([
+            'sender_id' => $senderId,
+            'consumer_id' => $consumerId,
+            'info' => $info
+        ]);
+
+        $user = Auth::user();
+        Log::info($user);
+        Log::info($responseMessage);
+
+        $responseMessage = json_encode([
+            'id' => $message->id,
+            'sender_id' => $user->id,
+            'consumer_id' => $message->consumer_id,
+            'info' => $message->info,
+        ]);
+        Log::info(responseMessage);
+        
+        if (isset($this->clients[$consumerId])) {
+            $this->clients[$consumerId]->send($responseMessage); // Отправляем сообщение только получателю
+            Log::info("Message sent to consumer_id: " . $consumerId);
+        } else {
+            Log::warning("Client with consumer_id {$consumerId} is not connected.");
         }
     }
 

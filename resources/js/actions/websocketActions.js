@@ -16,7 +16,8 @@ export const sendMessage = (body, clientId) => (dispatch, getState) =>{
         payload: {
             type: MESSAGE_TYPE,
             body: body,
-            clientId: clientId,
+            sender_id: clientId,
+            consumer_id: 2
         }
     });
 }
