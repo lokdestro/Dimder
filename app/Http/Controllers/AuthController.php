@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmOperatorAssignMail;
+use App\Services\SearchService;
 
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
@@ -155,6 +156,7 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         Log::info($user);
+
         return  response()->json(['message' => 'User register successfully', 
                                   'status' => 'success', 
                                   'user' => $user, 

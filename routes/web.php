@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CookieController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,28 @@ Route::get('login', [AuthController::class, 'signin'])->name('signin');
 Route::get('register', [AuthController::class, 'signup'])->name('signup');
 Route::get('logout', [AuthController::class, 'weblogout'])->name('weblogout');
 Route::get('/confirm/{hash}', [AuthController::class, 'confirmEmail'])->name('confirmEmailName');
-Route::get('/set-cookie', [CookieController::class, 'setCookie']);
+Route::post('/set-cookie', [CookieController::class, 'setCookie']);
 Route::get('/get-cookie', [CookieController::class, 'getCookie']);
-Route::get('/delete-cookie', [CookieController::class, 'deleteCookie']);
+Route::post('/delete-cookie', [CookieController::class, 'deleteCookie']);
+Route::post('/search', [SearchController::class, 'search'])->name('search');
 
+// fetch('/search', { 
+//     method: 'POST', 
+//     body: {search : 'abcc'},
+//     headers: { 
+//         'Content-Type': 'application/json' 
+//     }, 
+// }) 
+// .then(response => { 
+//     console.log(response)
+//     if (!response.ok) { 
+//         throw new Error('Network response was not ok ' + response.statusText); 
+//     } 
+//     return response.json(); 
+// }) 
+// .then(data => { 
+//     console.log('Success:', data); 
+// }) 
+// .catch((error) => { 
+//     console.error('Error:', error); 
+// });

@@ -17,4 +17,12 @@ class Profile extends Model
     {
         return $this->hasOne(User::class,'id','user_id')->select("users.id", "users.name", "users.email");
     }
+    public function scopeFullTextSearch($query, string $searchTerm, array $columns = ['name', 'surname'])
+    {
+        return $query->whereFullText($columns, $searchTerm);
+    }
+    public static function search(string $searchTerm, array $columns = ['name', 'surname'])
+    {
+        return self::query()->fullTextSearch($searchTerm, $columns)->get();
+    }
 }

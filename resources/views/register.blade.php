@@ -42,7 +42,7 @@
 
             </form>
             <button id="getData" class="button_pink button_pink_background " token onclick="getData(this)">Получить данные</button>
-        
+            <button id="search" class="button_pink button_pink_background " onclick="search(this)">search</button>
         </div>
         <script>
 
@@ -107,6 +107,62 @@
                 console.log(error,"error");
             }
         }
+        
+    }
+    function search(el){
+        const token =  document.getElementById("getData").getAttribute("token");
+      //  console.log("response = ", response);
+        fetch("{{route('search')}}", { 
+            method: 'POST', 
+            body: {search : 'abcc'},
+            headers: { 
+                'Content-Type': 'application/json' 
+            }, 
+        }) 
+        .then(response => { 
+            console.log(response)
+            if (!response.ok) { 
+                throw new Error('Network response was not ok ' + response.statusText); 
+            } 
+            return response.json(); 
+        }) 
+        .then(data => { 
+            console.log('Success:', data); 
+        }) 
+        .catch((error) => { 
+            console.error('Error:', error); 
+        });
+            // let xhr = new XMLHttpRequest();
+            
+
+            // xhr.open("POST", "{{route('search')}}");
+            // // xhr.setRequestHeader('AUTH-TOKEN', token);
+            // xhr.setRequestHeader('Content-Type', 'application/json');
+            // let body = {
+            //     search: "abcc" // Ваш ключ и его значение
+            // };
+
+            // // Отправляем запрос, преобразуя объект `body` в JSON-строку
+            // xhr.send(JSON.stringify(body));
+
+            // xhr.onload = async function (){
+            //  //   document.getElementById("registesr_form_modal-submit_button").removeAttribute("disabled");
+            //     const responseLoad = await xhr.response;
+
+            //     const response = JSON.parse(responseLoad);
+            //     console.log("response = ", response);
+            //     if(response.status === 200){
+            //         // if(response.redirect){
+            //         //     window.location.href = response.redirect;
+            //         // }
+            //     }else if (response.status === 401){
+            //     // document.getElementById("login_modal_error").innerHTML = response.message;
+            //     }
+            // }
+
+            // xhr.onerror = function (error) {
+            //     console.log(error,"error");
+            // }
         
     }
 

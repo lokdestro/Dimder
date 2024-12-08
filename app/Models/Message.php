@@ -11,4 +11,12 @@ class Message extends Model
     protected $fillable = ['sender_id', 'consumer_id', 'info'];
 
     protected $table = 'messages';
+    public function scopeFullTextSearch($query, string $searchTerm, array $columns = ['info'])
+    {
+        return $query->whereFullText($columns, $searchTerm);
+    }
+    public static function search(string $searchTerm, array $columns = ['info'])
+    {
+        return self::query()->fullTextSearch($searchTerm, $columns)->get();
+    }
 }
