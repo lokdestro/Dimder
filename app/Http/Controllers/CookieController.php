@@ -8,28 +8,44 @@ use Illuminate\Support\Facades\Log;
 
 class CookieController extends Controller
 {
-    // Установить cookies
-    public function setCookie()
+    public function setCookie(Request $request)
     {
-        Cookie::queue('language', 'ru', 60); // Добавить cookie на 60 минут
-        Log::info('add cookie');
-        return response('Cookie добавлена!');
+        try {
+            $language = $request->input('language');
+
+            if (!$language) {
+                return response()->json(['error' => 'Язык не указан.'], 400);
+            }
+
+            Cookie::queue('language', $language, 60);
+
+            Log::info('Cookie "language" установлена с языком: ' . $language);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cookie установлена.',
+                'language' => $language,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Ошибка при установке Cookie: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Ошибка при установке Cookie.',
+            ], 500);
+        }
     }
 
-    // Получить cookies
     public function getCookie(Request $request)
     {
         $value = $request->cookie('language');
-        Log::info('get cookie');
         return response()->json(['language' => $value]);
-       
     }
 
-    // Удалить cookies
     public function deleteCookie()
     {
-        Log::info('del cookie');
-        Cookie::queue(Cookie::forget('language')); // Удаляем cookie
+        Cookie::queue(Cookie::forget('language'));
+        Log::info('Cookie "language" удалена.');
         return response('Cookie удалена!');
     }
 }
