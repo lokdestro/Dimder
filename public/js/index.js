@@ -43849,16 +43849,26 @@ var wsDisconnected = function wsDisconnected() {
     type: _constants_js__WEBPACK_IMPORTED_MODULE_1__.WS_DISCONNECTED
   };
 };
+var time = Date.now();
 var sendMessage = function sendMessage(body, clientId) {
   return function (dispatch, getState) {
     console.log("  ----   sendMessage ---2-");
     dispatch({
       type: _constants_js__WEBPACK_IMPORTED_MODULE_1__.WS_SEND_MESSAGE,
       payload: {
-        type: _constants_message_js__WEBPACK_IMPORTED_MODULE_0__.MESSAGE_TYPE,
+        type: 'init',
         body: body,
-        sender_id: clientId,
+        sender_id: time,
         consumer_id: 2
+      }
+    });
+    dispatch({
+      type: _constants_js__WEBPACK_IMPORTED_MODULE_1__.WS_SEND_MESSAGE,
+      payload: {
+        type: 'message',
+        body: body,
+        sender_id: time,
+        consumer_id: time
       }
     });
   };
@@ -44125,8 +44135,8 @@ __webpack_require__.r(__webpack_exports__);
 var socketMiddleware = function socketMiddleware() {
   var wsSocket = null;
   var onMessage = function onMessage(store, event) {
-    console.log('WebSocket onMessage payload = ', payload);
     var payload = JSON.parse(event.data);
+    console.log('WebSocket onMessage payload = ', payload);
     var payloadType = payload.type;
     switch (payloadType) {
       case _constants_message_js__WEBPACK_IMPORTED_MODULE_2__.MESSAGE_TYPE:

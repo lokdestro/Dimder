@@ -6,7 +6,7 @@ export const wsConnected = () => ({type: WS_CONNECTED});
 export const wsDisconnect = () => ({type: WS_DISCONNECT});
 export const wsDisconnected = () => ({type: WS_DISCONNECTED});
 
-
+const time = Date.now();
 
 
 export const sendMessage = (body, clientId) => (dispatch, getState) =>{
@@ -14,10 +14,19 @@ export const sendMessage = (body, clientId) => (dispatch, getState) =>{
     dispatch({
         type: WS_SEND_MESSAGE,
         payload: {
-            type: MESSAGE_TYPE,
+            type: 'init',
             body: body,
-            sender_id: clientId,
+            sender_id: time,
             consumer_id: 2
+        }
+    });
+    dispatch({
+        type: WS_SEND_MESSAGE,
+        payload: {
+            type: 'message',
+            body: body,
+            sender_id: time,
+            consumer_id: time
         }
     });
 }

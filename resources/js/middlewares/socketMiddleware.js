@@ -12,8 +12,8 @@ import {
 const socketMiddleware = () => {
     let wsSocket = null;
     const onMessage = (store, event) => {
-        console.log('WebSocket onMessage payload = ', payload);
         const payload = JSON.parse(event.data);
+        console.log('WebSocket onMessage payload = ', payload);
         const payloadType =  payload.type;
         switch (payloadType) {
             case MESSAGE_TYPE:
