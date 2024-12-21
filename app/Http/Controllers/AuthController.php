@@ -94,7 +94,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        Log::info("LOGIN SUCCES");
+        Log::info("LOGIN SUCCESS");
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -103,6 +103,13 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
+        $search = new SearchService('abcc');
+        Log::info('1');
+        $resp = $search->search();
+        Log::info($resp);
+
+        return response()->json($resp);
+
         Log::debug($request);
         $request->validate([
             'name' => 'required|string|max:255',
@@ -149,11 +156,11 @@ class AuthController extends Controller
             'confirm_hasn' => $hash,
         ]);
         Log::info('add confirmEmail');
-        try {
-            Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
-        } catch (Exception $ex) {
-            Log::critical($user, 'EMAIL');
-        }
+        // try {
+        //     Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
+        // } catch (Exception $ex) {
+        //     Log::critical($user, 'EMAIL');
+        // }
         $user = Auth::user();
         Log::info($user);
 

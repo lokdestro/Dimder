@@ -11,7 +11,8 @@ class CookieController extends Controller
     public function setCookie(Request $request)
     {
         try {
-            $language = $request->input('language');
+            // $language = $request->input('language');
+            $language = $request->query('language'); 
 
             if (!$language) {
                 return response()->json(['error' => 'Язык не указан.'], 400);

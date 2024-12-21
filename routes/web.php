@@ -30,7 +30,7 @@ Route::get('login', [AuthController::class, 'signin'])->name('signin');
 Route::get('register', [AuthController::class, 'signup'])->name('signup');
 Route::get('logout', [AuthController::class, 'weblogout'])->name('weblogout');
 Route::get('/confirm/{hash}', [AuthController::class, 'confirmEmail'])->name('confirmEmailName');
-Route::post('/set-cookie', [CookieController::class, 'setCookie']);
+Route::get('/set-cookie', [CookieController::class, 'setCookie']);
 Route::get('/get-cookie', [CookieController::class, 'getCookie']);
 Route::post('/delete-cookie', [CookieController::class, 'deleteCookie']);
 Route::post('/search', [SearchController::class, 'search'])->name('search');
