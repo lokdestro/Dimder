@@ -150,11 +150,11 @@ class AuthController extends Controller
             'confirm_hasn' => $hash,
         ]);
         Log::info('add confirmEmail');
-        // try {
-        //     Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
-        // } catch (Exception $ex) {
-        //     Log::critical($user, 'EMAIL');
-        // }
+        try {
+            Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
+        } catch (Exception $ex) {
+            Log::critical($user, 'EMAIL');
+        }
         $user = Auth::user();
         Log::info($user);
 
