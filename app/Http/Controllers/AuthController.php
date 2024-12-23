@@ -103,12 +103,6 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        $search = new SearchService('abcc');
-        Log::info('1');
-        $resp = $search->search();
-        Log::info($resp);
-
-        return response()->json($resp);
 
         Log::debug($request);
         $request->validate([
