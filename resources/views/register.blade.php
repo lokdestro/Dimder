@@ -74,7 +74,6 @@
                     <button id="update" class="button_pink button_pink_background "  type="submit">Обновить</button>
 
             </form>
-            <img src="http://localhost/storage/52/6gb0O1uCVOtLUzx3wqztDTzKFcTjJrCQUy1JSIqf.png" alt="Buildings">
         <script>
 
     let token = null;

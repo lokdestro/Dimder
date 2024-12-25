@@ -37,7 +37,7 @@ class ProfileController extends Controller
             Log::info(22);
             $fileZap = $this->saveStorageProfile($request->file('imageProfile'), $user_id);
             if (!is_null($fileZap)){
-                $x['photo'] = env('APP_URL') . Storage::url($fileZap) ;
+                $x['photo'] = 'https://lokdestro.ru' . Storage::url($fileZap) ;
             }
         }
 
