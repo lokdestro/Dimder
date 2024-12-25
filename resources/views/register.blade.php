@@ -41,9 +41,40 @@
                     <button id="register_form_modal-submit_button" class="button_pink button_pink_background "  type="submit">Зарегистрироваться</button>
 
             </form>
+
             <button id="getData" class="button_pink button_pink_background " token onclick="getData(this)">Получить данные</button>
             <button id="search" class="button_pink button_pink_background " onclick="search(this)">search</button>
         </div>
+        <form id="update" enctype="multipart/form-data" action="{{route('update-profile', [ 'user_id' => 52 ] ) }}" 
+                                                            method="POST">
+                {!! csrf_field() !!}
+
+                    <p class="reg_input_title" >Name</p>
+                    <div class="login_modal_form_relative">
+                        <input required class="reg_input input_login" type="text" name="name">
+                    </div>
+                    <p class="reg_input_title" >Surname</p>
+                    <div class="login_modal_form_relative">
+                        <input required class="reg_input input_login" type="text" name="surname">
+                    </div>
+                    <p class="reg_input_title" >city</p>
+                    <div class="login_modal_form_relative">
+                        <input required class="reg_input input_login" type="text" name="city">
+                    </div>
+                    <p class="reg_input_title " >country</p>
+                    <div class="login_modal_form_relative">
+                    <input required class="reg_input input_login" type="text" name="country">
+                    </div>
+
+                    <div class="login_modal_form_relative">
+                    <input  class="image" type="file" name="imageProfile" id="photo" accept=".png, .jpg, .jpeg, .svg">
+                    </div>
+                    
+                    <br/><br/>
+                    <button id="update" class="button_pink button_pink_background "  type="submit">Обновить</button>
+
+            </form>
+            <img src="http://localhost/storage/52/6gb0O1uCVOtLUzx3wqztDTzKFcTjJrCQUy1JSIqf.png" alt="Buildings">
         <script>
 
     let token = null;
@@ -132,38 +163,6 @@
         .catch((error) => { 
             console.error('Error:', error); 
         });
-            // let xhr = new XMLHttpRequest();
-            
-
-            // xhr.open("POST", "{{route('search')}}");
-            // // xhr.setRequestHeader('AUTH-TOKEN', token);
-            // xhr.setRequestHeader('Content-Type', 'application/json');
-            // let body = {
-            //     search: "abcc" // Ваш ключ и его значение
-            // };
-
-            // // Отправляем запрос, преобразуя объект `body` в JSON-строку
-            // xhr.send(JSON.stringify(body));
-
-            // xhr.onload = async function (){
-            //  //   document.getElementById("registesr_form_modal-submit_button").removeAttribute("disabled");
-            //     const responseLoad = await xhr.response;
-
-            //     const response = JSON.parse(responseLoad);
-            //     console.log("response = ", response);
-            //     if(response.status === 200){
-            //         // if(response.redirect){
-            //         //     window.location.href = response.redirect;
-            //         // }
-            //     }else if (response.status === 401){
-            //     // document.getElementById("login_modal_error").innerHTML = response.message;
-            //     }
-            // }
-
-            // xhr.onerror = function (error) {
-            //     console.log(error,"error");
-            // }
-        
     }
 
 

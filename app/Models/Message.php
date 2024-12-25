@@ -19,4 +19,12 @@ class Message extends Model
     {
         return self::query()->fullTextSearch($searchTerm, $columns)->get();
     }
+    public function sender()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'sender_id');
+    }
+    public function consumer()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'consumer_id');
+    }
 }

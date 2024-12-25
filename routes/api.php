@@ -33,3 +33,14 @@ Route::middleware('jwt.auth')->group(function() {
 Route::middleware('auth.token')->group(function () {
     Route::get('getData',[AuthController::class, 'getData'])->name('getData');
 });
+
+Route::get('/filter-profiles', [SearchController::class, 'filterProfiles']);
+Route::get('/user/{userId}/chats', [ChatController::class, 'getUserChats']);
+Route::get('/profile/get/{user_id}', [ProfileController::class, 'getProfile'])->name('get-profile');
+Route::post('/profile/update/{user_id}', [ProfileController::class, 'updateProfile'])->name('update-profile');
+
+Route::get('/confirm/{hash}', [AuthController::class, 'confirmEmail'])->name('confirmEmailName');
+Route::get('/set-cookie', [CookieController::class, 'setCookie']);
+Route::get('/get-cookie', [CookieController::class, 'getCookie']);
+Route::post('/delete-cookie', [CookieController::class, 'deleteCookie']);
+Route::post('/search', [SearchController::class, 'search'])->name('search');

@@ -7,6 +7,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,12 @@ Route::get('/set-cookie', [CookieController::class, 'setCookie']);
 Route::get('/get-cookie', [CookieController::class, 'getCookie']);
 Route::post('/delete-cookie', [CookieController::class, 'deleteCookie']);
 Route::post('/search', [SearchController::class, 'search'])->name('search');
+
+Route::get('/filter-profiles', [SearchController::class, 'filterProfiles']);
+Route::get('/user/{userId}/chats', [ChatController::class, 'getUserChats']);
+Route::get('/profile/get/{user_id}', [ProfileController::class, 'getProfile'])->name('get-profile');
+Route::post('/profile/update/{user_id}', [ProfileController::class, 'updateProfile'])->name('update-profile');
+
 
 // fetch('/search', { 
 //     method: 'POST', 

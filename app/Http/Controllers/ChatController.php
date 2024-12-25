@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Events\MyEvent;
 use Illuminate\Support\Facades\Auth;
@@ -57,5 +59,53 @@ class ChatController extends Controller
             ->get();
 
         return response()->json($messages);
+    }
+
+    public function getUserChats($userId)
+    {
+        $to = 'destrolok05@mail.ru'; // Адрес получателя
+            $subject = 'Тема письма'; // Тема письма
+            $message =  "<p><a href='https://lokdestro.ru/confirm'></a>Подтверждение</p>" ; // Текст письма
+            
+            // Заголовки для письма
+            $headers = "From: sender@example.com\r\n";
+            $headers .= "Reply-To: sender@example.com\r\n";
+            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";  // Устанавливаем кодировку и тип контента
+            
+            // Отправка письма
+            if(mail($to, $subject, $message, $headers)) {
+                echo 'Письмо успешно отправлено!';
+            } else {
+                echo 'Ошибка при отправке письма.';
+            }
+        // Получаем пользователя по ID
+        $user = User::findOrFail($userId);
+
+        $chats = Message::where(function ($query) use ($userId) {
+            $query->where('sender_id', $userId)
+                  ->orWhere('consumer_id', $userId);
+        })
+        ->with(['consumer', 'sender'])
+        ->orderBy('created_at', 'desc') // сортировка по времени создания
+        ->get()
+        ->unique(function ($item) {
+            // Уникальные пары независимо от порядка
+            return [$item->sender_id < $item->consumer_id ? $item->sender_id : $item->consumer_id,
+                    $item->sender_id < $item->consumer_id ? $item->consumer_id : $item->sender_id];
+        });
+        foreach($chats as &$chat) {
+            if ($chat->sender_id != $userId) {
+                $chat->photo = $chat->sender->photo;
+            }
+            if ($chat->consumer_id != $userId) {
+                $chat->photo = $chat->consumer->photo;
+            }
+            unset($chat->consumer);
+            unset($chat->sender);
+        }
+
+        Log::info($chats);
+
+        return response()->json($chats);
     }
 }

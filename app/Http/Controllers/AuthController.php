@@ -150,11 +150,28 @@ class AuthController extends Controller
             'confirm_hasn' => $hash,
         ]);
         Log::info('add confirmEmail');
-        try {
-            Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
-        } catch (Exception $ex) {
-            Log::critical($user, 'EMAIL');
+        // try {
+        //     Mail::to($email)->send(new ConfirmOperatorAssignMail($hash));
+        // } catch (Exception $ex) {
+        //     Log::critical($user, 'EMAIL');
+        // }
+
+        $to = $email; // Адрес получателя
+        $subject = 'Подтверждение'; // Тема письма
+        $message =  "<p><a href='https://lokdestro.ru/confirm/$hash'></a>Подтверждение</p>" ; // Текст письма
+        
+        // Заголовки для письма
+        $headers = "From: sender@example.com\r\n";
+        $headers .= "Reply-To: sender@example.com\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";  // Устанавливаем кодировку и тип контента
+        
+        // Отправка письма
+        if(mail($to, $subject, $message, $headers)) {
+            echo 'Письмо успешно отправлено!';
+        } else {
+            echo 'Ошибка при отправке письма.';
         }
+
         $user = Auth::user();
         Log::info($user);
 
