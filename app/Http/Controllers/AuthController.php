@@ -143,7 +143,7 @@ class AuthController extends Controller
         Log::info("1");
         $inf = $request->only('email', 'name');
         Log::info("2");
-        $hash = md5($email);
+        $hash = md5(hrtime(true) . $email);
         Log::info($hash);
         $confirmEmail = ConfirmEmail::create([
             'user_id' => $user->id,
@@ -157,8 +157,8 @@ class AuthController extends Controller
         // }
 
         $to = $email; // Адрес получателя
-        $subject = 'Подтверждение'; // Тема письма
-        $message =  "<p><a href='https://lokdestro.ru/confirm/$hash'></a>Подтверждение</p>" ; // Текст письма
+        $subject = 'privet'; // Тема письма
+        $message =  "<p style='cursor:pointer'><a href='https://lokdestro.ru/confirm/$hash'>privet</a></p>" ; // Текст письма
         
         // Заголовки для письма
         $headers = "From: sender@example.com\r\n";
@@ -167,9 +167,9 @@ class AuthController extends Controller
         
         // Отправка письма
         if(mail($to, $subject, $message, $headers)) {
-            echo 'Письмо успешно отправлено!';
+            Log::info('Письмо успешно отправлено!');
         } else {
-            echo 'Ошибка при отправке письма.';
+            Log::info('Ошибка при отправке письма.');
         }
 
         $user = Auth::user();
