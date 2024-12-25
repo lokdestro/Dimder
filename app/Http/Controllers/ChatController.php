@@ -63,21 +63,6 @@ class ChatController extends Controller
 
     public function getUserChats($userId)
     {
-        $to = 'destrolok05@mail.ru'; // Адрес получателя
-            $subject = 'Тема письма'; // Тема письма
-            $message =  "<p><a href='https://lokdestro.ru/confirm'></a>Подтверждение</p>" ; // Текст письма
-            
-            // Заголовки для письма
-            $headers = "From: sender@example.com\r\n";
-            $headers .= "Reply-To: sender@example.com\r\n";
-            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";  // Устанавливаем кодировку и тип контента
-            
-            // Отправка письма
-            if(mail($to, $subject, $message, $headers)) {
-                echo 'Письмо успешно отправлено!';
-            } else {
-                echo 'Ошибка при отправке письма.';
-            }
         // Получаем пользователя по ID
         $user = User::findOrFail($userId);
 
