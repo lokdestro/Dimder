@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\CookieController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
